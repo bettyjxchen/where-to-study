@@ -4,7 +4,8 @@
   "version": "2.0.0",
   "scripts": {
     "heroku-postbuild": "gulp prod",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "start": "node server.js"
   },
   "cacheDirectories": [
     "content/libs"
@@ -15,10 +16,11 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^2.0.0",
-    "express": "^4.14.0",
+    "express": "^4.16.2",
     "express-validator": "^3.1.2",
     "joi": "^11.1.1",
     "joi-objectid": "^2.0.0",
+    "jquery": "^3.3.1",
     "mongodb": "^2.2.31",
     "node-uuid": "^1.4.7"
   },
@@ -43,5 +45,17 @@
     "lodash": "^4.17.4",
     "merge-stream": "^1.0.1",
     "minimist": "^1.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bettyjxchen/where-to-study.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bettyjxchen/where-to-study/issues"
+  },
+  "homepage": "https://github.com/bettyjxchen/where-to-study#readme",
+  "description": ""
 }
