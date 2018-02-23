@@ -10,17 +10,12 @@ router.use(authenticate)
 
 // API routes (group routing modules here - no empty lines between)
 router.use('/api/hackers', hackersRoutes)
-// router.use('/api/entities', entitiesRoutes)
-// router.use('/api/examples', examplesRoutes)
-
-
 
 // API error handlers (API routes must be registered before this)
 useAPIErrorHandlers(router)
 
 // register client routes
 router.use(clientRoutes)
-
 
 function useAPIErrorHandlers(router) {
     // Handle API 404

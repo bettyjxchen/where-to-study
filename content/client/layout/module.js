@@ -11,10 +11,9 @@
     function RouteConfig($stateProvider) {
         $stateProvider
             .state('site', {
-                // abstract: true,
-                url:"/",
+                abstract: true,
                 views: {
-                    root: {
+                    'root': {
                         templateUrl: 'client/layout/layout.tpl.html'
                     }
                 }
