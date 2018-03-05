@@ -13,6 +13,13 @@
 .theme-teye-text-mud {color:#daad86;}
 .theme-teye-text-dark-blue {color:#312c32;}
 
+/* Neighborhood */
+.cursor_tagline:link, .cursor_tagline:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color:black;
+}
+
 /* List */
 .aside-title_green {position: relative; overflow:hidden}
 .aside-title_green:after {content: ""; display: inline-block; width: 100%; background: #92d7d0; height: 1px; top: 50%; position: absolute;}

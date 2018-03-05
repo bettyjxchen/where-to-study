@@ -22,7 +22,9 @@
                 url: "/neighborhood",
                 views: {
                     'content@site': {
-                        templateUrl: 'client/layout/site/neighborhood/neighborhood.html'
+                        templateUrl: 'client/layout/site/neighborhood/neighborhood.html',
+                        controller:
+                        'neighborhoodController as neighborhoodCtrl'
                     }
                 }
             })
