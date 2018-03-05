@@ -9,10 +9,6 @@ const contentPath = path.join(__dirname, '../../content')
 router.get(/^\/([^\.\?]*|[^\?]*\/[^\.\?]*)(\?.*)?$/, (req, res, next) => {
     let file = "index.html"
 
-    if (req.originalUrl.startsWith('/homepage')) {
-        file = 'homepage.html'
-    }
-   
     res.sendFile(file, {
         root: contentPath
     })
@@ -23,7 +19,7 @@ router.get('*', express.static(contentPath, {
 }))
 
 // Handle Static File 404
-router.use(function(err, req, res, next) {
+router.use(function (err, req, res, next) {
     if (err) console.error
     res.sendStatus(404)
 })
