@@ -7,11 +7,13 @@ const schema = {
     rating: Joi.number().required(),
     address: Joi.string(),
     hours: Joi.string(),
+    link: Joi.string(),
 
     hasWifi: Joi.boolean(),
     hasOutlet: Joi.boolean(),
     hasParking: Joi.boolean(),
-    opensLate: Joi.boolean()
+    openLate: Joi.boolean(),
+    ampleSeating: Joi.boolean(),
 
 }
 

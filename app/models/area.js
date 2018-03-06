@@ -4,10 +4,8 @@ Joi.objectId = require('joi-objectid')(Joi)
 const schema = {
     _id: Joi.objectId(),
     name: Joi.string().required(),
-    areaIds: Joi.array().items(Joi.string()),
-    areaCount: Joi.number().required(),
-    defaultImageUrl: Joi.string(),
-    imageGallery: Joi.array().items(Joi.string()).allow(null)
+    coffeeShopIds: Joi.array().items(Joi.objectId()).allow(null),
+    coffeeShopCount: Joi.number()
 }
 
 module.exports = Joi.object().keys(schema)
