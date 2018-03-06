@@ -1,16 +1,261 @@
-<div class="container">
-    <div class="row">
-        <!-- HEADER -->
-        <nav class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <a class="navbar-brand" ui-sref="main">Stencil: Node and Angular</a>
+<!-- start header -->
+<header>
+    <!-- start navigation -->
+    <nav class="navbar navbar-default bootsnav navbar-top header-light bg-transparent nav-box-width white-link">
+        <div class="container-fluid nav-header-container">
+            <div class="row">
+                <!-- start logo -->
+                <!-- <div class="col-md-2 col-xs-5">
+                                <a href="index.html" title="Pofo" class="logo">
+                                    <img src="images/logo.png" data-at2x="images/logo@2x.png" class="logo-dark" alt="Pofo">
+                                    <img src="images/logo-white.png" data-at2x="images/logo-white@2x.png" alt="Pofo" class="logo-light default">
+                                </a>
+                            </div> -->
+                <!-- start nav -->
+                <!-- tabs -->
+                <div class="col-md-7 col-xs-2 width-auto pull-right accordion-menu xs-no-padding-right">
+                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navbar-collapse-toggle-1">
+                        <span class="sr-only">toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-collapse collapse pull-right" id="navbar-collapse-toggle-1">
+                        <ul id="accordion" class="nav navbar-nav navbar-left no-margin alt-font text-normal" data-in="fadeIn" data-out="fadeOut">
+                            <!-- start menu item -->
+                            <li>
+                                <a href="/">Welcome</a>
+                            </li>
+                            <!-- start menu item -->
+                            <li class="dropdown simple-dropdown">
+                                <a href="/neighborhood" title=" Neighborhood">Neighborhood</a>
+                                <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown" aria-hidden="true"></i>
+                                <!-- start sub menu -->
+                                <ul class="dropdown-menu" role="menu">
+                                    <!-- Item: Beachside -->
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Beachside'})">Beachside
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="blog-classic.html">Santa Monica</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-classic-full-width.html">Venice</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-classic.html">Hermosa</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <!-- Item: Westside -->
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Westside'})">Westside
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="blog-standard-full-width.html">Westwood</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-standard-with-left-sidebar.html">Brentwood</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Item: Mid City -->
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Mid-City'})">Mid-City
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="blog-list.html">West-Hollywood</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-list-full-width.html">Fairfax</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Item: Downtown -->
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Downtown'})">Downtown
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="blog-grid.html">South Park</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-grid-full-width.html">Financial District</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Item: Koreantown -->
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Koreantown'})">Koreantown
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="blog-masonry.html">Wilshire</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Item: Eastside -->
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Eastside'})">Eastside
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="blog-simple.html">Rowland Heights</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-simple-full-width.html">Arcadia</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-simple-full-width.html">San Gabriel</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <!-- end sub menu -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- searchbar -->
+                <div class="col-md-2 col-xs-5 width-auto">
+                    <div class="header-searchbar">
+                        <a href="#search-header" class="header-search-form text-white">
+                            <i class="fa fa-search search-button"></i>
+                        </a>
+                        <!-- search input-->
+                        <form id="search-header" method="post" action="search-result.html" name="search-header" class="mfp-hide search-form-result">
+                            <div class="search-form position-relative">
+                                <button type="submit" class="fa fa-search close-search search-button"></button>
+                                <input type="text" name="search" class="search-input" placeholder="Enter your keywords..." autocomplete="off">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="header-social-icon xs-display-none">
+                        <a href="https://www.instagram.com/coffee.convo" title="Instagram" target="_blank">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-            <ul class="nav navbar-nav">
-                <li><a ui-sref="site.hackers.list">Hackers</a></li>
-            </ul>
-        </nav>
-        <!-- ANGULAR DYNAMIC CONTENT -->
-        <div ui-view="content"></div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+</header>
+
+<!-- start ui-view -->
+<div ui-view="content"></div>
+
+<!-- start footer -->
+<footer class="footer-classic-dark bg-extra-dark-gray padding-five-bottom xs-padding-30px-bottom">
+    <div class="bg-dark-footer padding-50px-tb xs-padding-30px-tb">
     </div>
-</div>
+    <div class="footer-widget-area padding-five-top padding-30px-bottom xs-padding-30px-top">
+        <div class="container">
+            <div class="row">
+                <!-- start about -->
+                <div class="col-md-3 col-sm-6 col-xs-12 widget sm-margin-30px-bottom xs-text-center">
+                    <div class="widget-title alt-font text-small text-medium-gray text-uppercase margin-15px-bottom font-weight-600">About Agency</div>
+                    <p class="text-small width-95 xs-width-100 no-margin">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy
+                        text of the industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum is simply dummy text of the and typesetting industry. </p>
+                </div>
+                <!-- end about -->
+                <!-- start blog post -->
+                <div class="col-md-3 col-sm-6 col-xs-12 widget sm-margin-30px-bottom">
+                    <div class="widget-title alt-font text-small text-medium-gray text-uppercase margin-15px-bottom font-weight-600 xs-text-center">Latest Blog Post</div>
+                    <ul class="latest-post position-relative top-3">
+                        <li class="border-bottom border-color-medium-dark-gray">
+                            <figure>
+                                <a href="blog-post-layout-01.html">
+                                    <img src="/theme/images_site/home_header.jpg" alt="">
+                                </a>
+                            </figure>
+                            <div class="text-small">
+                                <a href="blog-post-layout-01.html">Design is not just what looks...</a>
+                                <span class="clearfix"></span>20 April 2017 | by
+                                <a href="blog-grid.html">Herman Miller</a>
+                            </div>
+                        </li>
+                        <li class="border-bottom border-color-medium-dark-gray">
+                            <figure>
+                                <a href="blog-post-layout-02.html">
+                                    <img src="/theme/images_site/home_header.jpg" alt="">
+                                </a>
+                            </figure>
+                            <div class="text-small">
+                                <a href="blog-post-layout-02.html">A lot of care, effort & passion...</a>
+                                <span class="clearfix"></span>20 April 2017 | by
+                                <a href="blog-grid.html">Herman Miller</a>
+                            </div>
+                        </li>
+                        <li>
+                            <figure>
+                                <a href="blog-post-layout-03.html">
+                                    <img src="/theme/images_site/home_header.jpg" alt="">
+                                </a>
+                            </figure>
+                            <div class="text-small">
+                                <a href="blog-post-layout-03.html">I love making the stuff, that's...</a>
+                                <span class="clearfix"></span>20 April 2017 | by
+                                <a href="blog-grid.html">Herman Miller</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end blog post -->
+                <!-- start newsletter -->
+                <div class="col-md-3 col-sm-6 col-xs-12 widget sm-margin-30px-bottom xs-text-center">
+                    <div class="widget-title alt-font text-small text-medium-gray text-uppercase margin-15px-bottom font-weight-600">Subscribe Newsletter</div>
+                    <p class="text-small width-90 xs-width-100">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy
+                        text of the printing and typesetting industry.</p>
+                    <form id="subscribenewsletterform" action="javascript:void(0)" method="post">
+                        <div class="position-relative newsletter width-95">
+                            <div id="success-subscribe-newsletter" class="no-margin-lr"></div>
+                            <input type="text" id="email" name="email" class="bg-transparent text-small no-margin border-color-medium-dark-gray" placeholder="Enter your email...">
+                            <button id="button-subscribe-newsletter" type="submit" class="btn btn-arrow-small position-absolute border-color-medium-dark-gray">
+                                <i class="fa fa-caret-right no-margin-left"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- end newsletter -->
+                <!-- start instagram -->
+                <!-- <div class="col-md-3 col-sm-6 col-xs-12 widget xs-margin-5px-bottom xs-text-center">
+                        <div class="widget-title alt-font text-small text-medium-gray text-uppercase margin-20px-bottom font-weight-600">Follow us Instagram</div>
+                        <div class="instagram-follow-api">
+                            <ul id="instaFeed-footer"></ul>
+                        </div>
+                    </div> -->
+                <!-- end instagram -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="footer-bottom border-top border-color-medium-dark-gray padding-30px-top">
+            <div class="row">
+                <!-- start copyright -->
+                <div class="col-md-6 col-sm-6 col-xs-12 text-left text-small xs-text-center">POFO - Portfolio Concept Theme</div>
+                <div class="col-md-6 col-sm-6 col-xs-12 text-right text-small xs-text-center">&COPY; 2017 POFO is Proudly Powered by
+                    <a href="http://www.themezaa.com" target="_blank" title="ThemeZaa">ThemeZaa</a>
+                </div>
+                <!-- end copyright -->
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- start scroll to top -->
+<a class="scroll-top-arrow" href="javascript:void(0);">
+    <i class="ti-arrow-up"></i>
+</a>
+<!-- end scroll to top  -->

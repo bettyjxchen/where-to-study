@@ -1,0 +1,25 @@
+/* Homepage */
+.bg-extra-medium-blue {background-color:#bcd5d1;}
+
+/* Palette Teye */
+.theme-text-grey {color:#1d2120;}
+.theme-text-green {color:#5a5c51;}
+.theme-text-copper {color:#ba9077;}
+.theme-text-blue {color:#bcd5d1;}
+
+/* Palette Teye  */
+.theme-teye-text-white {color:#feffff;}
+.theme-teye-text-light-blue {color:#98dafc;}
+.theme-teye-text-mud {color:#daad86;}
+.theme-teye-text-dark-blue {color:#312c32;}
+
+/* Neighborhood */
+.cursor_tagline:link, .cursor_tagline:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color:black;
+}
+
+/* List */
+.aside-title_green {position: relative; overflow:hidden}
+.aside-title_green:after {content: ""; display: inline-block; width: 100%; background: #92d7d0; height: 1px; top: 50%; position: absolute;}

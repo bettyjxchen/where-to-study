@@ -1,7 +1,10 @@
 const router = require('express').Router()
-const hackersRoutes = require('./hackers.routes')
-const clientRoutes = require('./client.routes')
 const authenticate = require('../filters/authenticate')
+const clientRoutes = require('./client.routes')
+const hackersRoutes = require('./hackers.routes')
+const neighborhoodsRoutes = require('./neighborhoods.routes')
+const areasRoutes = require('./areas.routes')
+const coffeeShopsRoutes = require('./coffee-shops.routes')
 
 module.exports = router
 
@@ -10,17 +13,15 @@ router.use(authenticate)
 
 // API routes (group routing modules here - no empty lines between)
 router.use('/api/hackers', hackersRoutes)
-// router.use('/api/entities', entitiesRoutes)
-// router.use('/api/examples', examplesRoutes)
-
-
+router.use('/api/neighborhoods', neighborhoodsRoutes)
+router.use('/api/areas', areasRoutes)
+router.use('/api/coffee-shops', coffeeShopsRoutes)
 
 // API error handlers (API routes must be registered before this)
 useAPIErrorHandlers(router)
 
 // register client routes
 router.use(clientRoutes)
-
 
 function useAPIErrorHandlers(router) {
     // Handle API 404

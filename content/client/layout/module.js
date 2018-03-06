@@ -13,7 +13,7 @@
             .state('site', {
                 abstract: true,
                 views: {
-                    root: {
+                    'root': {
                         templateUrl: 'client/layout/layout.tpl.html'
                     }
                 }
