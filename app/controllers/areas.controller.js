@@ -52,8 +52,7 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    areasService
-        .update(req.params.id, req.model)
+    areasService.update(req.params.id, req.model)
         .then(area => {
             const responseModel = new responses.SuccessResponse()
             res.status(200).json(responseModel)
@@ -65,8 +64,7 @@ function update(req, res) {
 }
 
 function _delete(req, res) {
-    areasService
-        .delete(req.params.id)
+    areasService.deactivate(req.params.id)
         .then(() => {
             const responseModel = new responses.SuccessResponse()
             res.status(200).json(responseModel)

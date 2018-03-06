@@ -26,9 +26,14 @@ function readAll(req, res) {
 function readById(req, res) {
     coffeeShopsService.readById(req.params.id)
         .then(coffeeShop => {
-            const responseModel = new responses.ItemResponse()
-            responseModel.item = coffeeShop
-            res.json(responseModel)
+            if (!notification) {
+                res.status(404).send(new responses.ErrorResponse("Item does not exist."))
+            }
+            else {
+                const responseModel = new responses.ItemResponse()
+                responseModel.item = coffeeShop
+                res.json(responseModel)
+            }
         })
         .catch(err => {
             console.log(err)
@@ -52,8 +57,7 @@ function create(req, res) {
 }
 
 function update(req, res) {
-    coffeeShopsService
-        .update(req.params.id, req.model)
+    coffeeShopsService.update(req.params.id, req.model)
         .then(coffeeShop => {
             const responseModel = new responses.SuccessResponse()
             res.status(200).json(responseModel)
@@ -65,8 +69,7 @@ function update(req, res) {
 }
 
 function _delete(req, res) {
-    coffeeShopsService
-        .delete(req.params.id)
+    coffeeShopsService.deactivate(req.params.id)
         .then(() => {
             const responseModel = new responses.SuccessResponse()
             res.status(200).json(responseModel)

@@ -5,9 +5,8 @@ const schema = {
     _id: Joi.objectId(),
     name: Joi.string().required(),
     areaIds: Joi.array().items(Joi.string()),
-    areaCount: Joi.number().required(),
-    defaultImageUrl: Joi.string(),
-    imageGallery: Joi.array().items(Joi.string()).allow(null)
+    // areaCount: Joi.number().required(),
+    imageUrl: Joi.string(),
 }
 
 module.exports = Joi.object().keys(schema)

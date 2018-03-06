@@ -3,9 +3,9 @@
     angular.module('client.site')
         .controller('listController', ListController)
 
-    ListController.$inject = ['$stateParams']
+    ListController.$inject = ['$stateParams', 'neighborhoodService']
 
-    function ListController($stateParams) {
+    function ListController($stateParams, neighborhoodService) {
         var vm = this
         vm.neighborhood = ""
 

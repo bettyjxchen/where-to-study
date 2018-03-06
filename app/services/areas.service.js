@@ -8,42 +8,59 @@ module.exports = {
     readById: readById,
     create: create,
     update: update,
-    delete: _delete
+    deactivate: _deactivate
 }
 
 function readAll() {
     return conn.db().collection('areas').find().toArray()
-        .then( areas => {
+        .then(areas => {
             for (let i = 0; i < areas.length; i++) {
                 let area = areas[i]
-                area._id = area._id.toString() // convert ObjectId back to string
+                area._id = area._id.toString()
             }
             return areas
-        } )
+        })
 }
 
 function readById(id) {
     return conn.db().collection('areas').findOne({ _id: new ObjectId(id) })
         .then(area => {
-            area._id = area._id.toString() // convert ObjectId back to string
+            area._id = area._id.toString()
             return area
         })
 }
 
 function create(model) {
-    return conn.db().collection('areas').insert(model)
-        .then(result => result.insertedIds[0].toString()) // "return" generated Id as string
+    let doc = {
+        name: model.name,
+        coffeeShopIds: model.coffeeShopIds,
+        coffeeShopCount: model.coffeeShopCount,
+
+        dateCreated: new Date(),
+        dateModified: null,
+        dateDeactivated: null
+    }
+    return conn.db().collection('areas').insert(doc)
+        .then(result => result.insertedIds[0].toString()) 
 }
 
-function update(id, doc) {
-    // convert string id used outside of MongoDB into ObjectId needed by MongoDB
-    doc._id = new ObjectId(doc._id)
+function update(id, model) {
+    model.coffeeShopIds.forEach(id => id = id.toString())
 
-    return conn.db().collection('areas').replaceOne( { _id: new ObjectId(id) }, doc )
-        .then(result => Promise.resolve()) // "return" nothing
+    let doc = {
+        _id: new ObjectId(model._id),
+        name: model.name,
+        coffeeShopIds: model.coffeeShopIds,
+        coffeeShopCount: model.coffeeShopCount,
+
+        dateModified: new Date()
+    }
+  
+    return conn.db().collection('areas').updateOne({ _id: new ObjectId(id) }, doc)
+        .then(result => Promise.resolve()) 
 }
 
-function _delete(id) {
-    return conn.db().collection('areas').deleteOne({ _id: new ObjectId(id) })
-        .then(result => Promise.resolve()) // "return" nothing
+function _deactivate(id) {
+    return conn.db().collection('areas').updateOne({ _id: new ObjectId(id) })
+        .then(result => Promise.resolve()) 
 }

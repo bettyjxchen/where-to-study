@@ -8,7 +8,7 @@ module.exports = {
     readById: readById,
     create: create,
     update: update,
-    delete: _delete
+    deactivate: _deactivate
 }
 
 function readAll() {
@@ -16,34 +16,44 @@ function readAll() {
         .then(neighborhoods => {
             for (let i = 0; i < neighborhoods.length; i++) {
                 let neighborhood = neighborhoods[i]
-                neighborhood._id = neighborhood._id.toString() // convert ObjectId back to string
+                neighborhood._id = neighborhood._id.toString()
             }
             return neighborhoods
-        } )
+        })
 }
 
 function readById(id) {
     return conn.db().collection('neighborhoods').findOne({ _id: new ObjectId(id) })
         .then(neighborhood => {
-            neighborhood._id = neighborhood._id.toString() // convert ObjectId back to string
+            neighborhood._id = neighborhood._id.toString()
             return neighborhood
         })
 }
 
 function create(model) {
-    return conn.db().collection('neighborhoods').insert(model)
-        .then(result => result.insertedIds[0].toString()) // "return" generated Id as string
+    let doc = {
+        name: model.name,
+        areaIds: model.areaIds,
+        imageUrl: model.imageUrl
+    }
+
+    return conn.db().collection('neighborhoods').insert(doc)
+        .then(result => result.insertedIds[0].toString())
 }
 
-function update(id, doc) {
-    // convert string id used outside of MongoDB into ObjectId needed by MongoDB
-    doc._id = new ObjectId(doc._id)
+function update(id, model) {
+    let doc = {
+        _id: new ObjectId(model._id),
+        name: model.name,
+        areaIds: model.areaIds,
+        imageUrl: model.imageUrl
+    }
 
-    return conn.db().collection('neighborhoods').replaceOne( { _id: new ObjectId(id) }, doc )
-        .then(result => Promise.resolve()) // "return" nothing
+    return conn.db().collection('neighborhoods').updateOne({ _id: new ObjectId(id) }, doc)
+        .then(result => Promise.resolve())
 }
 
-function _delete(id) {
-    return conn.db().collection('neighborhoods').deleteOne({ _id: new ObjectId(id) })
-        .then(result => Promise.resolve()) // "return" nothing
+function _deactivate(id) {
+    return conn.db().collection('neighborhoods').updateOne({ _id: new ObjectId(id) })
+        .then(result => Promise.resolve())
 }

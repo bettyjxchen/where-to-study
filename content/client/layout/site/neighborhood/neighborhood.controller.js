@@ -3,24 +3,27 @@
     angular.module('client.site')
         .controller('neighborhoodController', NeighborhoodController)
 
-   NeighborhoodController.$inject = ['$stateParams']
+    NeighborhoodController.$inject = ['$stateParams', 'neighborhoodService']
 
-    function NeighborhoodController($stateParams) {
+    function NeighborhoodController($stateParams, neighborhoodService) {
         var vm = this
-        
-        vm.sayHi = _sayHi
+        vm.neighborhoods = []
+
 
         init()
 
         function init() {
-           
+            neighborhoodService.readAll()
+                .then(neighborhoods => {
+                    vm.neighborhoods = neighborhoods.items
+                    console.log(vm.neighborhoods)
+                })
+
         }
 
-        function _sayHi() {
-            console.log("hi")
-        }
 
 
-       
+
+
     }
 })()

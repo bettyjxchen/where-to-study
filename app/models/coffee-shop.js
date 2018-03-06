@@ -8,6 +8,8 @@ const schema = {
     address: Joi.string(),
     hours: Joi.string(),
     link: Joi.string(),
+    imageUrl: Joi.string(),
+    imageGallery: Joi.array().items(Joi.string()).allow(null),
 
     hasWifi: Joi.boolean(),
     hasOutlet: Joi.boolean(),
