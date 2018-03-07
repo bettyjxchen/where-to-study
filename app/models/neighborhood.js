@@ -5,7 +5,6 @@ const schema = {
     _id: Joi.objectId(),
     name: Joi.string().required(),
     areaIds: Joi.array().items(Joi.string()),
-    // areaCount: Joi.number().required(),
     imageUrl: Joi.string(),
 }
 

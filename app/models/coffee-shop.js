@@ -3,6 +3,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 
 const schema = {
     _id: Joi.objectId(),
+    areaId: Joi.string().required(),
     name: Joi.string().required(),
     rating: Joi.number().required(),
     address: Joi.string(),
