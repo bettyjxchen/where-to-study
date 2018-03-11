@@ -32,91 +32,14 @@
                                 <i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown" aria-hidden="true"></i>
                                 <!-- start sub menu -->
                                 <ul class="dropdown-menu" role="menu">
-                                    <!-- Item: Beachside -->
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Beachside'})">Beachside
+                                    <li class="dropdown" ng-repeat="neighborhood in layoutCtrl.neighborhoods">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: neighborhood.name})" ui-sref-opts="{inherit: false}">{{neighborhood.name}}
                                             <i class="fa fa-angle-right"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="blog-classic.html">Santa Monica</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-classic-full-width.html">Venice</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-classic.html">Hermosa</a>
-                                            </li>
-
-                                        </ul>
-                                    </li>
-                                    <!-- Item: Westside -->
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Westside'})">Westside
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="blog-standard-full-width.html">Westwood</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-standard-with-left-sidebar.html">Brentwood</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- Item: Mid City -->
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Mid-City'})">Mid-City
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="blog-list.html">West-Hollywood</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-list-full-width.html">Fairfax</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- Item: Downtown -->
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Downtown'})">Downtown
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="blog-grid.html">South Park</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-grid-full-width.html">Financial District</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- Item: Koreantown -->
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Koreantown'})">Koreantown
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="blog-masonry.html">Wilshire</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- Item: Eastside -->
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" ui-sref="site.list({neighborhood: 'Eastside'})">Eastside
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="blog-simple.html">Rowland Heights</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-simple-full-width.html">Arcadia</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-simple-full-width.html">San Gabriel</a>
+                                            <li ng-repeat="area in neighborhood.areas">
+                                                <a ui-sref="site.list({neighborhood: neighborhood.name, area: area.name})" ui-sref-opts="{inherit: false}">{{area.name}}</a>
+                                         
                                             </li>
                                         </ul>
                                     </li>

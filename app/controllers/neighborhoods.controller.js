@@ -5,6 +5,7 @@ const apiPrefix = '/api/neighborhoods';
 module.exports = {
     readAll: readAll,
     readById: readById,
+    readByName: readByName,
     create: create,
     update: update,
     delete: _delete
@@ -25,6 +26,19 @@ function readAll(req, res) {
 
 function readById(req, res) {
     neighborhoodsService.readById(req.params.id)
+        .then(neighborhood => {
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = neighborhood
+            res.json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
+}
+
+function readByName(req, res) {
+    neighborhoodsService.readByName(req.params.name)
         .then(neighborhood => {
             const responseModel = new responses.ItemResponse()
             responseModel.item = neighborhood

@@ -6,6 +6,7 @@ const ObjectId = mongodb.ObjectId
 module.exports = {
     readAll: readAll,
     readById: readById,
+    readByName: readByName,
     create: create,
     update: update,
     deactivate: _deactivate
@@ -30,6 +31,9 @@ function readAll() {
             $match: { "dateDeactivated": null }
         },
         {
+            $sort: { "name": 1}
+        },
+        {
             $facet: {
                 neighborhoods: [
                     {
@@ -46,6 +50,7 @@ function readAll() {
                             name: 1,
                             areaIds: 1,
                             areas: 1,
+                            imageUrl: 1,
                             dateCreated: 1,
                             dateModified: 1,
                             dateDeactivated: 1
@@ -63,6 +68,7 @@ function readAll() {
                 name: "$neighborhoods.name",
                 areaIds: "$neighborhoods.areaIds",
                 areas: "$neighborhoods.areas",
+                imageUrl: "$neighborhoods.imageUrl",
                 dateCreated: "$neighborhoods.dateCreated",
                 dateModified: "$neighborhoods.dateModified",
                 dateDeactivated: "$neighborhoods.dateDeactivated",
@@ -98,6 +104,7 @@ function readById(id) {
                             name: 1,
                             areaIds: 1,
                             areas: 1,
+                            imageUrl: 1,
                             dateCreated: 1,
                             dateModified: 1,
                             dateDeactivated: 1
@@ -115,6 +122,64 @@ function readById(id) {
                 name: "$neighborhoods.name",
                 areaIds: "$neighborhoods.areaIds",
                 areas: "$neighborhoods.areas",
+                imageUrl: "$neighborhoods.imageUrl",
+                dateCreated: "$neighborhoods.dateCreated",
+                dateModified: "$neighborhoods.dateModified",
+                dateDeactivated: "$neighborhoods.dateDeactivated",
+
+            }
+        }
+    ]).toArray()
+        .then(neighborhood => {
+            console.log(neighborhood)
+            neighborhood.map(readMapping)
+            return neighborhood
+        })
+}
+
+function readByName(name) {
+    let match = { $and: [{ "dateDeactivated": null }, { "name": name }] }
+    
+    return conn.db().collection('neighborhoods').aggregate([
+        {
+            $match: match
+        },
+        {
+            $facet: {
+                neighborhoods: [
+                    {
+                        $lookup: {
+                            from: 'areas',
+                            localField: '_id',
+                            foreignField: 'neighborhoodId',
+                            as: 'areas'
+                        }
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            name: 1,
+                            areaIds: 1,
+                            areas: 1,
+                            imageUrl: 1,
+                            dateCreated: 1,
+                            dateModified: 1,
+                            dateDeactivated: 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            $unwind: "$neighborhoods"
+        },
+        {
+            $project: {
+                _id: "$neighborhoods._id",
+                name: "$neighborhoods.name",
+                areaIds: "$neighborhoods.areaIds",
+                areas: "$neighborhoods.areas",
+                imageUrl: "$neighborhoods.imageUrl",
                 dateCreated: "$neighborhoods.dateCreated",
                 dateModified: "$neighborhoods.dateModified",
                 dateDeactivated: "$neighborhoods.dateDeactivated",

@@ -12,6 +12,7 @@
         return {
             readAll: readAll,
             readById: readById,
+            readByName: readByName,
             create: create,
             update: update,
             delete: _delete
@@ -25,6 +26,12 @@
 
         function readById(id) {
             return $http.get(`/api/neighborhoods/${id}`)
+                .then(xhrSuccess)
+                .catch(onError)
+        }
+
+        function readByName(name) {
+            return $http.get(`/api/neighborhoods/${name}`)
                 .then(xhrSuccess)
                 .catch(onError)
         }

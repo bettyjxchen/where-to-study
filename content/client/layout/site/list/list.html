@@ -1,13 +1,13 @@
 <!-- start page title section -->
-<section class="wow fadeIn parallax" data-stellar-background-ratio="0.5" style="background-image:url('images/parallax-bg39.jpg');">
+<section id="" class="wow fadeIn parallax" data-stellar-background-ratio="0.5" style="background-image:url({{listCtrl.neighborhood.imageUrl}});">
     <div class="opacity-medium bg-extra-dark-gray"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 extra-small-screen display-table page-title-large">
                 <div class="display-table-cell vertical-align-middle text-center">
                     <!-- start page title -->
-                    <h1 class="text-white alt-font font-weight-600 letter-spacing-minus-1 margin-10px-bottom">{{listCtrl.neighborhood}}</h1>
-                    <span class="text-white opacity6 alt-font">Lorem Ipsum is simply dummy text printing</span>
+                    <h1 class="text-white alt-font font-weight-600 letter-spacing-minus-1 margin-10px-bottom">{{listCtrl.neighborhood.name}}</h1>
+                    <span class="text-white opacity6 alt-font">{{ listCtrl.area ? listCtrl.area.name : null }}</span>
                     <!-- end page title -->
                 </div>
             </div>
@@ -22,11 +22,11 @@
         <div class="row">
             <main class="col-md-9 col-sm-12 col-xs-12 right-sidebar sm-margin-60px-bottom xs-margin-40px-bottom sm-padding-15px-lr">
                 <!-- start post item -->
-                <div class="equalize sm-equalize-auto blog-post-content margin-60px-bottom padding-60px-bottom display-inline-block border-bottom border-color-extra-light-gray sm-margin-30px-bottom sm-padding-30px-bottom xs-text-center sm-no-border">
+                <div ng-repeat="area in listCtrl.coffeeShopArray" class="equalize sm-equalize-auto blog-post-content margin-60px-bottom padding-60px-bottom display-inline-block border-bottom border-color-extra-light-gray sm-margin-30px-bottom sm-padding-30px-bottom xs-text-center sm-no-border">
                     <div class="blog-image col-md-5 no-padding sm-margin-30px-bottom xs-margin-20px-bottom margin-45px-right sm-no-margin-right display-table">
                         <div class="display-table-cell vertical-align-middle">
                             <a href="blog-standard-post.html">
-                                <img src="images/blog-img37.jpg" alt="">
+                                <img src="" alt="">
                             </a>
                         </div>
                     </div>
@@ -93,6 +93,19 @@
                     </form>
                 </div>
 
+                <!-- Areas -->
+                <div class="margin-45px-bottom xs-margin-25px-bottom">
+                    <div class="text-extra-dark-gray margin-20px-bottom alt-font text-uppercase font-weight-600 text-small aside-title aside-title_green">
+                        <span>Other Areas</span>
+                    </div>
+                    <ul class="list-style-6 margin-50px-bottom text-small">
+                        <li ng-repeat="area in listCtrl.neighborhood.areas">
+                            <a ui-sref="site.list({neighborhood: listCtrl.neighborhood.name, area: area.name})" ui-sref-opts="{inherit: false}">{{area.name}}</a>
+                            <span>{{listCtrl.neighborhood.coffeeShopCount}}</span>
+                        </li>   
+                    </ul>
+                </div>
+
                 <!-- Tag Cloud -->
                 <div class="margin-45px-bottom xs-margin-25px-bottom">
                     <div class="text-extra-dark-gray margin-25px-bottom alt-font text-uppercase font-weight-600 text-small aside-title aside-title_green">
@@ -111,59 +124,6 @@
                         <a href="blog-grid.html">UNIQUE</a>
                         <a href="blog-grid.html">CONCEPTS</a>
                     </div>
-                </div>
-
-                <!-- Neighborhoods -->
-                <div class="margin-45px-bottom xs-margin-25px-bottom">
-                    <div class="text-extra-dark-gray margin-20px-bottom alt-font text-uppercase font-weight-600 text-small aside-title aside-title_green">
-                        <span>Neighborhoods</span>
-                    </div>
-                    <ul class="list-style-6 margin-50px-bottom text-small">
-                        <li>
-                            <a href="blog-masonry.html">Arts and Entertainment</a>
-                            <span>12</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Blog</a>
-                            <span>05</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Blog Full width</a>
-                            <span>08</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Blog Grid</a>
-                            <span>10</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Branding</a>
-                            <span>21</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Design Tutorials</a>
-                            <span>09</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Designing</a>
-                            <span>07</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Feature</a>
-                            <span>06</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Home Blog</a>
-                            <span>10</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Onepage Fashion</a>
-                            <span>11</span>
-                        </li>
-                        <li>
-                            <a href="blog-masonry.html">Sample</a>
-                            <span>06</span>
-                        </li>
-                    </ul>
                 </div>
 
                 <!-- Newsletter -->

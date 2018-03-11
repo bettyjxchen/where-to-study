@@ -1,5 +1,5 @@
 <!-- start page title section -->
-<section class="wow fadeIn parallax" data-stellar-background-ratio="0.5" style="background-image:url('/theme/images_site/places_header.jpg');">
+<section id="" class="wow fadeIn parallax" data-stellar-background-ratio="0.5" style="background-image:url('/theme/images_site/places_header.jpg');">
     <div class="opacity-medium bg-extra-dark-gray"></div>
     <div class="container">
         <div class="row">
@@ -19,29 +19,9 @@
 <section class="wow fadeIn bg-light-gray">
     <div class="container">
         <div class="row equalize xs-equalize-auto">
-            <!-- fresh news item: west-side -->
-            <!-- <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" ui-sref="site.list({neighborhood: 'Westside'})">
-                <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
-                    <div class="post-details">
-                        <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
-                            <a ui-sref="site.list({neighborhood: 'Westside'})">Westside</a>
-                        </span>
-                        <div class="author padding-10px-top position-relative">
-                            <div class="pull-right">
-                                <a href="blog-post-layout-01.html">15</a>
-                            </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">Westwood</a>
-                                <br>
-                                <a href="javascript:void(0);">Brentwood</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
+            <!-- repeating neighborhood selections -->
             <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" ng-repeat="neighborhood in neighborhoodCtrl.neighborhoods"
-                ui-sref="site.list({neighborhood: neighborhood.name})">
+                ui-sref="site.list({neighborhood: neighborhood.name})" ui-sref-opts="{inherit: false}">
                 <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
                     <div class="post-details">
                         <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
@@ -49,193 +29,78 @@
                         </span>
                         <div class="author padding-10px-top position-relative">
                             <div class="pull-right">
-                                <a>{{neighborhood.areaCount}}</a>
+                                <a>{{neighborhood.coffeeShopCount}} Results</a>
                             </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">Westwood</a>
+                            <span class="text-uppercase text-extra-small" ng-repeat="area in neighborhood.areas">
+                                <a href=" javascript:void(0); ">{{area.name}}</a>
                                 <br>
-                                <a href="javascript:void(0);">Brentwood</a>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- fresh news item: beach-side -->
-            <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" data-wow-delay="0.2s">
-                <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
-                    <div class="post-details">
-                        <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
-                            <a href="blog-post-layout-02.html">Beachside</a>
-                        </span>
-                        <div class="author padding-10px-top position-relative">
-                            <div class="pull-right">
-                                <a href="blog-post-layout-01.html">9</a>
-                            </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">Santa Monica</a>
-                                <br>
-                                <a href="javascript:void(0);">Venice</a>
-                                <br>
-                                <a href="javascript:void(0);">Hermosa</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- end fresh news item -->
-            </div>
-
-            <!-- fresh news item: mid-city -->
-            <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" data-wow-delay="0.2s">
-                <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
-                    <div class="post-details">
-                        <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
-                            <a href="blog-post-layout-02.html">Mid-City</a>
-                        </span>
-                        <div class="author padding-10px-top position-relative">
-                            <div class="pull-right">
-                                <a href="blog-post-layout-01.html">23</a>
-                            </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">West-Hollywood</a>
-                                <br>
-                                <a href="javascript:void(0);">Fairfax</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- end fresh news item -->
-            </div>
-
-            <!-- fresh news item: downtown -->
-            <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" data-wow-delay="0.2s">
-                <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
-                    <div class="post-details">
-                        <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
-                            <a href="blog-post-layout-02.html">Downtown</a>
-                        </span>
-                        <div class="author padding-10px-top position-relative">
-                            <div class="pull-right">
-                                <a href="blog-post-layout-01.html">12</a>
-                            </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">South Park</a>
-                                <br>
-                                <a href="javascript:void(0);">Financial District</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- end fresh news item -->
-            </div>
-
-            <!-- fresh news item: koreantown -->
-            <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" data-wow-delay="0.2s">
-                <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
-                    <div class="post-details">
-                        <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
-                            <a href="blog-post-layout-02.html">Koreantown</a>
-                        </span>
-                        <div class="author padding-10px-top position-relative">
-                            <div class="pull-right">
-                                <a href="blog-post-layout-01.html">30</a>
-                            </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">Wilshire</a>
-                                <br>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- end fresh news item -->
-            </div>
-
-            <!-- fresh news item: East-Side -->
-            <div class="col-md-4 col-sm-6 col-xs-12 margin-30px-bottom xs-margin-15px-bottom wow fadeIn cursor_tagline" data-wow-delay="0.2s">
-                <div class="blog-post blog-post-style7 border-all border-color-light-gray padding-fourteen-all md-padding-ten-all xs-padding-30px-all bg-white inner-match-height">
-                    <div class="post-details">
-                        <span class="text-large alt-font margin-50px-bottom sm-margin-30px-bottom display-block">
-                            <a href="blog-post-layout-02.html">Eastside</a>
-                        </span>
-                        <div class="author padding-10px-top position-relative">
-                            <div class="pull-right">
-                                <a href="blog-post-layout-01.html">43</a>
-                            </div>
-                            <span class="text-uppercase text-extra-small">
-                                <a href="javascript:void(0);">Rowland Heights</a>
-                                <br>
-                                <a href="javascript:void(0);">Arcadia</a>
-                                <br>
-                                <a href="javascript:void(0);">San Gabriel</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- end fresh news item -->
-            </div>
-
         </div>
     </div>
 </section>
 
 <!-- javascript libraries -->
-<script type="text/javascript" src="/theme/js/jquery.js"></script>
-<script type="text/javascript" src="/theme/js/modernizr.js"></script>
-<script type="text/javascript" src="/theme/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/theme/js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="/theme/js/skrollr.min.js"></script>
-<script type="text/javascript" src="/theme/js/smooth-scroll.js"></script>
-<script type="text/javascript" src="/theme/js/jquery.appear.js"></script>
+<script type="text/javascript " src="/theme/js/jquery.js "></script>
+<script type="text/javascript " src="/theme/js/modernizr.js "></script>
+<script type="text/javascript " src="/theme/js/bootstrap.min.js "></script>
+<script type="text/javascript " src="/theme/js/jquery.easing.1.3.js "></script>
+<script type="text/javascript " src="/theme/js/skrollr.min.js "></script>
+<script type="text/javascript " src="/theme/js/smooth-scroll.js "></script>
+<script type="text/javascript " src="/theme/js/jquery.appear.js "></script>
 <!-- menu navigation -->
-<script type="text/javascript" src="/theme/js/bootsnav.js"></script>
-<script type="text/javascript" src="/theme/js/jquery.nav.js"></script>
+<script type="text/javascript " src="/theme/js/bootsnav.js "></script>
+<script type="text/javascript " src="/theme/js/jquery.nav.js "></script>
 <!-- animation -->
-<script type="text/javascript" src="/theme/js/wow.min.js"></script>
+<script type="text/javascript " src="/theme/js/wow.min.js "></script>
 <!-- page scroll -->
-<script type="text/javascript" src="/theme/js/page-scroll.js"></script>
+<script type="text/javascript " src="/theme/js/page-scroll.js "></script>
 <!-- swiper carousel -->
-<script type="text/javascript" src="/theme/js/swiper.min.js"></script>
+<script type="text/javascript " src="/theme/js/swiper.min.js "></script>
 <!-- counter -->
-<script type="text/javascript" src="/theme/js/jquery.count-to.js"></script>
+<script type="text/javascript " src="/theme/js/jquery.count-to.js "></script>
 <!-- parallax -->
-<script type="text/javascript" src="/theme/js/jquery.stellar.js"></script>
+<script type="text/javascript " src="/theme/js/jquery.stellar.js "></script>
 <!-- magnific popup -->
-<script type="text/javascript" src="/theme/js/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript " src="/theme/js/jquery.magnific-popup.min.js "></script>
 <!-- portfolio with shorting tab -->
-<script type="text/javascript" src="/theme/js/isotope.pkgd.min.js"></script>
+<script type="text/javascript " src="/theme/js/isotope.pkgd.min.js "></script>
 <!-- images loaded -->
-<script type="text/javascript" src="/theme/js/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript " src="/theme/js/imagesloaded.pkgd.min.js "></script>
 <!-- pull menu -->
-<script type="text/javascript" src="/theme/js/classie.js"></script>
-<script type="text/javascript" src="/theme/js/hamburger-menu.js"></script>
+<script type="text/javascript " src="/theme/js/classie.js "></script>
+<script type="text/javascript " src="/theme/js/hamburger-menu.js "></script>
 <!-- counter  -->
-<script type="text/javascript" src="/theme/js/counter.js"></script>
+<script type="text/javascript " src="/theme/js/counter.js "></script>
 <!-- fit video  -->
-<script type="text/javascript" src="/theme/js/jquery.fitvids.js"></script>
+<script type="text/javascript " src="/theme/js/jquery.fitvids.js "></script>
 <!-- equalize -->
-<script type="text/javascript" src="/theme/js/equalize.min.js"></script>
+<script type="text/javascript " src="/theme/js/equalize.min.js "></script>
 <!-- skill bars  -->
-<script type="text/javascript" src="/theme/js/skill.bars.jquery.js"></script>
+<script type="text/javascript " src="/theme/js/skill.bars.jquery.js "></script>
 <!-- justified gallery  -->
-<script type="text/javascript" src="/theme/js/justified-gallery.min.js"></script>
+<script type="text/javascript " src="/theme/js/justified-gallery.min.js "></script>
 <!--pie chart-->
-<script type="text/javascript" src="/theme/js/jquery.easypiechart.min.js"></script>
+<script type="text/javascript " src="/theme/js/jquery.easypiechart.min.js "></script>
 <!-- instagram -->
-<script type="text/javascript" src="/theme/js/instafeed.min.js"></script>
+<script type="text/javascript " src="/theme/js/instafeed.min.js "></script>
 <!-- retina -->
-<script type="text/javascript" src="/theme/js/retina.min.js"></script>
+<script type="text/javascript " src="/theme/js/retina.min.js "></script>
 <!-- revolution -->
-<script type="text/javascript" src="/theme/revolution/js/jquery.themepunch.tools.min.js"></script>
-<script type="text/javascript" src="/theme/revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript " src="/theme/revolution/js/jquery.themepunch.tools.min.js "></script>
+<script type="text/javascript " src="/theme/revolution/js/jquery.themepunch.revolution.min.js "></script>
 <!-- revolution slider extensions (load below extensions JS files only on local file systems to make the slider work! The following part can be removed on server for on demand loading) -->
-<!--<script type="text/javascript" src="revolution/js/extensions/revolution.extension.actions.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.migration.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-       <script type="text/javascript" src="revolution/js/extensions/revolution.extension.video.min.js"></script>-->
+<!--<script type="text/javascript " src="revolution/js/extensions/revolution.extension.actions.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.carousel.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.kenburn.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.layeranimation.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.migration.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.navigation.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.parallax.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.slideanims.min.js "></script>
+       <script type="text/javascript " src="revolution/js/extensions/revolution.extension.video.min.js "></script>-->
 <!-- setting -->
-<script type="text/javascript" src="/theme/js/main.js"></script>
+<script type="text/javascript " src="/theme/js/main.js "></script>

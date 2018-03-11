@@ -6,6 +6,7 @@ const ObjectId = mongodb.ObjectId
 module.exports = {
     readAll: readAll,
     readById: readById,
+    readByName: readByName,
     create: create,
     update: update,
     deactivate: _deactivate
@@ -38,6 +39,9 @@ function readAll() {
     return conn.db().collection('areas').aggregate([
         {
             $match: { "dateDeactivated": null }
+        },
+        {
+            $sort: { "name": 1}
         },
         {
             $facet: {
@@ -92,6 +96,58 @@ function readById(id) {
     return conn.db().collection('areas').aggregate([
         {
             $match: { $and: [{ "dateDeactivated": null }, { "_id": new ObjectId(id) }] }
+        },
+        {
+            $facet: {
+                areas: [
+                    {
+                        $lookup: {
+                            from: 'coffeeShops',
+                            localField: '_id',
+                            foreignField: 'areaId',
+                            as: 'coffeeShops'
+                        }
+                    },
+                    {
+                        $project: {
+                            _id: 1,
+                            name: 1,
+                            coffeeShopIds: 1,
+                            coffeeShops: 1,
+                            dateCreated: 1,
+                            dateModified: 1,
+                            dateDeactivated: 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            $unwind: "$areas"
+        },
+        {
+            $project: {
+                _id: "$areas._id",
+                name: "$areas.name",
+                coffeeShopIds: "$areas.coffeeShopIds",
+                coffeeShops: "$areas.coffeeShops",
+                dateCreated: "$areas.dateCreated",
+                dateModified: "$areas.dateModified",
+                dateDeactivated: "$areas.dateDeactivated",
+
+            }
+        }
+    ]).toArray()
+        .then(area => {
+            area.map(readMapping)
+            return area
+        })
+}
+
+function readByName(name) {
+    return conn.db().collection('areas').aggregate([
+        {
+            $match: { $and: [{ "dateDeactivated": null }, { "name": name }] }
         },
         {
             $facet: {

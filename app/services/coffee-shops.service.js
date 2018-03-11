@@ -13,10 +13,15 @@ module.exports = {
 
 function readAll() {
     return conn.db().collection('coffeeShops').find().toArray()
-        .then( coffeeShops => {
+        .then(coffeeShops => {
+            //sort by ranking
+            coffeeShops = coffeeShops.sort(function (a, b) {
+                return a.ranking > b.ranking
+            })
+
             for (let i = 0; i < coffeeShops.length; i++) {
                 let coffeeShop = coffeeShops[i]
-                coffeeShop._id = coffeeShop._id.toString() 
+                coffeeShop._id = coffeeShop._id.toString()
             }
             return coffeeShops
         })
@@ -26,7 +31,7 @@ function readById(id) {
     return conn.db().collection('coffeeShops')
         .findOne({ _id: new ObjectId(id) })
         .then(coffeeShop => {
-            coffeeShop._id = coffeeShop._id.toString() 
+            coffeeShop._id = coffeeShop._id.toString()
             return coffeeShop
         })
 }
@@ -45,7 +50,7 @@ function create(model) {
         hasParking: model.hasParking,
         openLate: model.openLate,
         ampleSeating: model.ampleSeating,
-        
+
         dateCreated: new Date(),
         dateModified: null,
         dateDeactivated: null
@@ -53,7 +58,7 @@ function create(model) {
 
     return conn.db().collection('coffeeShops')
         .insert(doc)
-        .then(result => result.insertedIds[0].toString()) 
+        .then(result => result.insertedIds[0].toString())
 }
 
 function update(id, model) {
@@ -71,12 +76,12 @@ function update(id, model) {
         hasParking: model.hasParking,
         openLate: model.openLate,
         ampleSeating: model.ampleSeating,
-    
-        dateModified: new Date()      
+
+        dateModified: new Date()
     }
     return conn.db().collection('coffeeShops')
-        .updateOne( { _id: new ObjectId(id) }, { $set: doc } )
-        .then(result => Promise.resolve()) 
+        .updateOne({ _id: new ObjectId(id) }, { $set: doc })
+        .then(result => Promise.resolve())
 }
 
 function _deactivate(id) {

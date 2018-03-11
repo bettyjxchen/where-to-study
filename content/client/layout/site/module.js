@@ -24,18 +24,43 @@
                     'content@site': {
                         templateUrl: 'client/layout/site/neighborhood/neighborhood.html',
                         controller:
-                        'neighborhoodController as neighborhoodCtrl'
+                            'neighborhoodController as neighborhoodCtrl'
                     }
                 }
             })
             .state('site.list', {
-                url: "/neighborhood/:neighborhood",
+                url: "/neighborhood/:neighborhood?area",
                 views: {
                     'content@site': {
                         templateUrl: 'client/layout/site/list/list.html',
                         controller: 'listController as listCtrl'
                     }
+                },
+                resolve: {
+                    neighborhood: getNeighborhood,
+                    area: getArea
                 }
             })
     }
+
+    getNeighborhood.$inject = ['neighborhoodService', 'areaService', '$stateParams']
+    function getNeighborhood(neighborhoodService, areaService, $stateParams) {
+        return neighborhoodService.readByName($stateParams.neighborhood)
+            .then(data => data.item[0])
+    }
+
+    getArea.$inject = ['areaService', '$stateParams']
+    function getArea(areaService, $stateParams) {
+        if ($stateParams.area) {
+            return areaService.readByName($stateParams.area)
+                .then(data => {
+                    console.log(`this is data from resolve area: ${data}`)
+                    return data.item[0]  
+                })
+        }
+        else {
+            return null
+        }
+    }
+
 })()
