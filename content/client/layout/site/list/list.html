@@ -22,31 +22,37 @@
         <div class="row">
             <main class="col-md-9 col-sm-12 col-xs-12 right-sidebar sm-margin-60px-bottom xs-margin-40px-bottom sm-padding-15px-lr">
                 <!-- start post item -->
-                <div ng-repeat="area in listCtrl.coffeeShopArray" class="equalize sm-equalize-auto blog-post-content margin-60px-bottom padding-60px-bottom display-inline-block border-bottom border-color-extra-light-gray sm-margin-30px-bottom sm-padding-30px-bottom xs-text-center sm-no-border">
+                <div ng-repeat="coffeeShop in listCtrl.coffeeShopArray" class="equalize sm-equalize-auto blog-post-content margin-60px-bottom padding-60px-bottom display-inline-block border-bottom border-color-extra-light-gray sm-margin-30px-bottom sm-padding-30px-bottom xs-text-center sm-no-border">
+                    <!-- default image -->
                     <div class="blog-image col-md-5 no-padding sm-margin-30px-bottom xs-margin-20px-bottom margin-45px-right sm-no-margin-right display-table">
                         <div class="display-table-cell vertical-align-middle">
                             <a href="blog-standard-post.html">
-                                <img src="" alt="">
+                                <img ng-src={{coffeeShop.imageUrl}} alt="">
                             </a>
                         </div>
                     </div>
+                    <!-- description -->
                     <div class="blog-text col-md-6 display-table no-padding">
                         <div class="display-table-cell vertical-align-middle">
                             <div class="content margin-20px-bottom sm-no-padding-left ">
-                                <a href="blog-standard-post.html" class="text-extra-dark-gray margin-5px-bottom alt-font text-extra-large font-weight-600 display-inline-block">Design is thinking made visual</a>
+                                <!-- name -->
+                                <a href="blog-standard-post.html" class="text-extra-dark-gray margin-5px-bottom alt-font text-extra-large font-weight-600 display-inline-block">{{coffeeShop.name}}</a>
+                                <!-- area and stars -->
                                 <div class="text-medium-gray text-extra-small margin-15px-bottom text-uppercase alt-font">
-                                    <span>By
-                                        <a href="blog-grid.html" class="text-medium-gray">Emily Wright</a>
-                                    </span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                                    <span>17 july 2017</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                                    <a href="blog-grid.html" class="text-medium-gray">Design</a>
+                                    <span>{{coffeeShop.areaName}}</span>
+                                    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                                    <a href="blog-grid.html" class="text-medium-gray">{{coffeeShop.rating}}</a>
                                 </div>
-                                <p class="no-margin width-95">Lorem Ipsum is simply dummy text of the printing and industry. Lorem Ipsum has been the industry
-                                    industry’s standard dummy text Lorem Ipsum is simply dummy text of the printing and typesetting
-                                    industry.
-                                </p>
+                                <!-- description -->
+                                <p class="no-margin width-95">{{coffeeShop.description}}</p>
+                                <br>
+
+                                <p class="no-margin width-95">
+                                    <strong>Hours:</strong>&nbsp;&nbsp;{{coffeeShop.hours}}</p>
+                                <p class="no-margin width-95">
+                                    <strong>Address:</strong>&nbsp;&nbsp;{{coffeeShop.address}}</p>
                             </div>
-                            <a class="btn btn-very-small btn-dark-gray text-uppercase" href="blog-standard-post.html">Continue Reading</a>
+                            <a class="btn btn-very-small btn-dark-gray text-uppercase" href="blog-standard-post.html">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +108,7 @@
                         <li ng-repeat="area in listCtrl.neighborhood.areas">
                             <a ui-sref="site.list({neighborhood: listCtrl.neighborhood.name, area: area.name})" ui-sref-opts="{inherit: false}">{{area.name}}</a>
                             <span>{{listCtrl.neighborhood.coffeeShopCount}}</span>
-                        </li>   
+                        </li>
                     </ul>
                 </div>
 
@@ -178,7 +184,6 @@
                         </ul>
                     </div>
                 </div>
-
             </aside>
         </div>
     </div>

@@ -12,26 +12,23 @@ module.exports = {
     deactivate: _deactivate
 }
 
-function readMapping(model) {
-    model._id = model._id.toString()
-    model.areaIds.forEach(id => id = id.toString())
-    model.areas.forEach(area => area._id = area._id.toString())
-    model.areaCount = model.areaIds.length
-
-    return model
+//*********** Mongo Aggregation Pipeline ***********//
+var matchDeactivated = { "dateDeactivated": null }
+var lookupAreas = {
+    from: 'areas',
+    localField: '_id',
+    foreignField: 'neighborhoodId',
+    as: 'areas'
 }
-
-function writeMapping(model) {
-    model.areaIds.forEach(id => id = id.toString())
-}
+//*************************************************//
 
 function readAll() {
     return conn.db().collection('neighborhoods').aggregate([
         {
-            $match: { "dateDeactivated": null }
+            $match: matchDeactivated
         },
         {
-            $sort: { "name": 1}
+            $sort: { "name": 1 }
         },
         {
             $facet: {
@@ -55,7 +52,16 @@ function readAll() {
                             dateModified: 1,
                             dateDeactivated: 1
                         }
-                    }
+                    },
+                    // {
+                    //     $unwind: "$areas"
+                    // },
+                    // {
+                    //     $sort: { "name": 1 }
+                    // },
+                    // {
+                    //     $group: { "name": "$name" }
+                    // }
                 ]
             }
         },
@@ -85,18 +91,13 @@ function readAll() {
 function readById(id) {
     return conn.db().collection('neighborhoods').aggregate([
         {
-            $match: { $and: [{ "dateDeactivated": null }, { "_id": new ObjectId(id) }] }
+            $match: { $and: [matchDeactivated, { "_id": new ObjectId(id) }] }
         },
         {
             $facet: {
                 neighborhoods: [
                     {
-                        $lookup: {
-                            from: 'areas',
-                            localField: '_id',
-                            foreignField: 'neighborhoodId',
-                            as: 'areas'
-                        }
+                        $lookup: lookupAreas
                     },
                     {
                         $project: {
@@ -131,15 +132,14 @@ function readById(id) {
         }
     ]).toArray()
         .then(neighborhood => {
-            console.log(neighborhood)
             neighborhood.map(readMapping)
             return neighborhood
         })
 }
 
 function readByName(name) {
-    let match = { $and: [{ "dateDeactivated": null }, { "name": name }] }
-    
+    let match = { $and: [matchDeactivated, { "name": name }] }
+
     return conn.db().collection('neighborhoods').aggregate([
         {
             $match: match
@@ -148,12 +148,7 @@ function readByName(name) {
             $facet: {
                 neighborhoods: [
                     {
-                        $lookup: {
-                            from: 'areas',
-                            localField: '_id',
-                            foreignField: 'neighborhoodId',
-                            as: 'areas'
-                        }
+                        $lookup: lookupAreas
                     },
                     {
                         $project: {
@@ -222,3 +217,18 @@ function _deactivate(id) {
     return conn.db().collection('neighborhoods').updateOne({ _id: new ObjectId(id) })
         .then(result => Promise.resolve())
 }
+
+//*************** Helper Functions ****************//
+function readMapping(model) {
+    model._id = model._id.toString()
+    model.areaIds.forEach(id => id = id.toString())
+    model.areas.forEach(area => area._id = area._id.toString())
+    model.areaCount = model.areaIds.length
+
+    return model
+}
+
+function writeMapping(model) {
+    model.areaIds.forEach(id => id = id.toString())
+}
+//*************************************************//

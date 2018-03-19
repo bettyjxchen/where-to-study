@@ -19,8 +19,6 @@
 
             //set neighborhood first
             vm.neighborhood = neighborhood
-            console.log(`this is for neighborhood: ${vm.neighborhood.name}`)
-            console.log(vm.neighborhood)
 
             //check if only one area
             if (area) {
@@ -40,6 +38,24 @@
                             for (var i = 0; i < area.coffeeShops.length; i++) {
                                 vm.coffeeShopArray.push(area.coffeeShops[i])
                             }
+                        })
+                        .then(() => {
+                            vm.coffeeShopArray.forEach(coffeeShop => {
+                                //convert ranking into stars
+                                let ratingStars = "☆☆☆☆☆"
+                                ratingStars = ratingStars.split("")
+                                for (var i = 0; i < coffeeShop.rating; i++) {
+                                    ratingStars[i] = "★"
+                                }
+                                ratingStars = ratingStars.join("")
+                                coffeeShop.rating = ratingStars
+                                //find area name from area id
+                                areaService.readById(coffeeShop.areaId)
+                                    .then(data => {
+                                        area = data.item[0]
+                                        coffeeShop.areaName = area.name
+                                    })
+                            })
                         })
                 }
             }

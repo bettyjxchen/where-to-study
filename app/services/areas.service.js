@@ -9,39 +9,26 @@ module.exports = {
     readByName: readByName,
     create: create,
     update: update,
-    deactivate: _deactivate
+    deactivate: deactivate
 }
 
-/* Mongo Aggregation Pipeline */
-// var matchDeactivated = { "dateDeactivated": null }
-// var addFieldsCoffeeShop = { coffeeShop: { $arrayElemAt: ['$coffeeShop', 0] } }
-// var lookupCoffeeShops = {
-//     from: 'coffeeShops',
-//     localField: 'coffeeShopId',
-//     foreignField: '_id',
-//     as: 'coffeeShop'
-// }
-
-function readMapping(model) {
-    model._id = model._id.toString()
-    model.coffeeShopIds.forEach(id => id = id.toString())
-    model.coffeeShops.forEach(coffeeShop => coffeeShop._id = coffeeShop._id.toString())
-    model.coffeeShopCount = model.coffeeShopIds.length
-
-    return model
+//*********** Mongo Aggregation Pipeline ***********//
+var matchDeactivated = { "dateDeactivated": null }
+var lookupCoffeeShops = {
+    from: 'coffeeShops',
+    localField: '_id',
+    foreignField: 'areaId',
+    as: 'coffeeShops'
 }
-
-function writeMapping(model) {
-    model.coffeeShopIds.forEach(id => id = id.toString())
-}
+//*************************************************//
 
 function readAll() {
     return conn.db().collection('areas').aggregate([
         {
-            $match: { "dateDeactivated": null }
+            $match: matchDeactivated
         },
         {
-            $sort: { "name": 1}
+            $sort: { "name": 1 }
         },
         {
             $facet: {
@@ -83,19 +70,17 @@ function readAll() {
 
             }
         }
-
     ]).toArray()
         .then(areas => {
             areas.map(readMapping)
             return areas
         })
-    
 }
 
 function readById(id) {
     return conn.db().collection('areas').aggregate([
         {
-            $match: { $and: [{ "dateDeactivated": null }, { "_id": new ObjectId(id) }] }
+            $match: { $and: [matchDeactivated, { "_id": new ObjectId(id) }] }
         },
         {
             $facet: {
@@ -147,7 +132,7 @@ function readById(id) {
 function readByName(name) {
     return conn.db().collection('areas').aggregate([
         {
-            $match: { $and: [{ "dateDeactivated": null }, { "name": name }] }
+            $match: { $and: [matchDeactivated, { "name": name }] }
         },
         {
             $facet: {
@@ -198,6 +183,7 @@ function readByName(name) {
 
 function create(model) {
     writeMapping(doc)
+
     let doc = {
         name: model.name,
         coffeeShopIds: model.coffeeShopIds,
@@ -228,7 +214,22 @@ function update(id, model) {
         .then(result => Promise.resolve())
 }
 
-function _deactivate(id) {
+function deactivate(id) {
     return conn.db().collection('areas').updateOne({ _id: new ObjectId(id) })
         .then(result => Promise.resolve())
 }
+
+//*************** Helper Functions ****************//
+function readMapping(model) {
+    model._id = model._id.toString()
+    model.coffeeShopIds.forEach(id => id = id.toString())
+    model.coffeeShops.forEach(coffeeShop => coffeeShop._id = coffeeShop._id.toString())
+    model.coffeeShopCount = model.coffeeShopIds.length
+
+    return model
+}
+
+function writeMapping(model) {
+    model.coffeeShopIds.forEach(id => id = id.toString())
+}
+//*************************************************//
