@@ -8,68 +8,201 @@
 
     function ListController($stateParams, neighborhoodService, areaService, $anchorScroll, $timeout, $location, neighborhood, area) {
         var vm = this
+        vm.coffeeShopArrayMaster = []
+        vm.coffeeShopArray = []
         vm.neighborhood = {}
         vm.area = {}
-        vm.coffeeShopArray = []
+        vm.tags = {
+            hasWifi: false,
+            hasOutlet: false,
+            hasParking: false,
+            openLate: false,
+            ampleSeating: false
+        }
+
+        vm.hasWifiChange = _hasWifiChange
+        vm.hasOutletChange = _hasOutletChange
+        vm.hasParkingChange = _hasParkingChange
+        vm.openLateChange = _openLateChange
+        vm.ampleSeatingChange = _ampleSeatingChange
+        vm.clearFilters = _clearFilters
 
         init()
 
         function init() {
-            _scrollToTop()
+            scrollToTop()
 
             //set neighborhood first
             vm.neighborhood = neighborhood
 
-            //check if only one area
+            //check if specific area
             if (area) {
                 vm.area = area
-                for (var i = 0; i < vm.area.coffeeShops.length; i++) {
-                    vm.coffeeShopArray.push(vm.area.coffeeShops[i])
-                }
+                vm.coffeeShopArrayMaster = vm.area.coffeeShops
+                vm.coffeeShopArrayMaster.map(convertRating)
+                vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayMaster)
             }
 
-            //else return all area in neighborhood
+            //else return all areas in neighborhood
             else {
                 for (var i = 0; i < vm.neighborhood.areas.length; i++) {
                     let area = vm.neighborhood.areas[i]
                     areaService.readByName(area.name)
                         .then(data => {
                             area = data.item[0]
-                            for (var i = 0; i < area.coffeeShops.length; i++) {
-                                vm.coffeeShopArray.push(area.coffeeShops[i])
-                            }
+                            area.coffeeShops.map(convertRating)
+                            vm.coffeeShopArrayMaster = area.coffeeShops
+                            vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayMaster)
+                            console.log(vm.coffeeShopArray)
                         })
-                        .then(() => {
-                            vm.coffeeShopArray.forEach(coffeeShop => {
-                                //convert ranking into stars
-                                let ratingStars = "☆☆☆☆☆"
-                                ratingStars = ratingStars.split("")
-                                for (var i = 0; i < coffeeShop.rating; i++) {
-                                    ratingStars[i] = "★"
-                                }
-                                ratingStars = ratingStars.join("")
-                                coffeeShop.rating = ratingStars
-                                //find area name from area id
-                                areaService.readById(coffeeShop.areaId)
-                                    .then(data => {
-                                        area = data.item[0]
-                                        coffeeShop.areaName = area.name
-                                    })
-                            })
-                        })
+                        // .then(() => {
+                        //     vm.coffeeShopArrayMaster.forEach(coffeeShop => {
+                        //         //find area name from area id
+                        //         areaService.readById(coffeeShop.areaId)
+                        //             .then(data => {
+                        //                 area = data.item[0]
+                        //                 coffeeShop.areaName = area.name
+                        //                 vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayMaster)
+                        //                 console.log(vm.coffeeShopArray)
+                        //             })
+                        //     })
+                        // })
                 }
             }
-            console.log(vm.coffeeShopArray)
         }
 
-        function _scrollToTop() {
+        function _hasWifiChange() {
+            //has wifi
+            if (vm.tags.hasWifi) {
+                for (var i = 0; i < vm.coffeeShopArray.length; i++) {
+                    if (!vm.coffeeShopArray[i].hasWifi) {
+                        vm.coffeeShopArray.splice(i, 1)
+                    }
+                }
+            }
+
+            //remove wifi filter
+            else {
+                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
+                    if (!vm.coffeeShopArrayCopy[i].hasWifi) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                    }
+                }
+            }
+        }
+
+        function _hasOutletChange() {
+            //outlet filter
+            if (vm.tags.hasOutlet) {
+                for (var i = 0; i < vm.coffeeShopArray.length; i++) {
+                    if (!vm.coffeeShopArray[i].hasOutlet) {
+                        vm.coffeeShopArray.splice(i, 1)
+                    }
+                }
+            }
+
+            //remove filter
+            else {
+                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
+                    if (!vm.coffeeShopArrayCopy[i].hasOutlet) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                    }
+                }
+            }
+        }
+
+        function _hasParkingChange() {
+            //parking filter
+            if (vm.tags.hasParking) {
+                for (var i = 0; i < vm.coffeeShopArray.length; i++) {
+                    if (!vm.coffeeShopArray[i].hasParking) {
+                        vm.coffeeShopArray.splice(i, 1)
+                    }
+                }
+            }
+
+            //remove filter
+            else {
+                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
+                    if (!vm.coffeeShopArrayCopy[i].hasParking) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                    }
+                }
+            }
+        }
+
+        function _openLateChange() {
+            //open late
+            if (vm.tags.openLate) {
+                for (var i = 0; i < vm.coffeeShopArray.length; i++) {
+                    if (!vm.coffeeShopArray[i].openLate) {
+                        vm.coffeeShopArray.splice(i, 1)
+                    }
+                }
+            }
+
+            //remove filter
+            else {
+                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
+                    if (!vm.coffeeShopArrayCopy[i].openLate) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                    }
+                }
+            }
+        }
+
+        function _ampleSeatingChange() {
+            //ampleSeating
+            if (vm.tags.ampleSeating) {
+                for (var i = 0; i < vm.coffeeShopArray.length; i++) {
+                    if (!vm.coffeeShopArray[i].ampleSeating) {
+                        vm.coffeeShopArray.splice(i, 1)
+                    }
+                }
+            }
+
+            //remove filter
+            else {
+                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
+                    if (!vm.coffeeShopArrayCopy[i].ampleSeating) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                    }
+                }
+            }
+        }
+
+        function _clearFilters() {
+            vm.tags = {
+                hasWifi: false,
+                hasOutlet: false,
+                hasParking: false,
+                openLate: false,
+                ampleSeating: false
+            }
+
+            vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayCopy)
+            console.log(vm.coffeeShopArrayCopy)
+            // console.log(vm.coffeeShopArray)
+
+        }
+
+        function convertRating(coffeeShop) {
+            let ratingStars = "☆☆☆☆☆"
+            ratingStars = ratingStars.split("")
+            for (var i = 0; i < coffeeShop.rating; i++) {
+                ratingStars[i] = "★"
+            }
+            ratingStars = ratingStars.join("")
+            coffeeShop.rating = ratingStars
+            return coffeeShop
+        }
+
+        function scrollToTop() {
             $timeout(() => {
-                $location.hash('')
+                $location.hash('top')
                 $anchorScroll()
             })
         }
-
-
     }
 
 })()

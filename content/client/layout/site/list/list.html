@@ -1,5 +1,5 @@
 <!-- start page title section -->
-<section id="" class="wow fadeIn parallax" data-stellar-background-ratio="0.5" style="background-image:url({{listCtrl.neighborhood.imageUrl}});">
+<section id="top" class="wow fadeIn parallax" data-stellar-background-ratio="0.5" style="background-image:url({{listCtrl.neighborhood.imageUrl}});">
     <div class="opacity-medium bg-extra-dark-gray"></div>
     <div class="container">
         <div class="row">
@@ -102,12 +102,12 @@
                 <!-- Areas -->
                 <div class="margin-45px-bottom xs-margin-25px-bottom">
                     <div class="text-extra-dark-gray margin-20px-bottom alt-font text-uppercase font-weight-600 text-small aside-title aside-title_green">
-                        <span>Other Areas</span>
+                        <span>All Areas in {{listCtrl.neighborhood.name}}</span>
                     </div>
                     <ul class="list-style-6 margin-50px-bottom text-small">
                         <li ng-repeat="area in listCtrl.neighborhood.areas">
                             <a ui-sref="site.list({neighborhood: listCtrl.neighborhood.name, area: area.name})" ui-sref-opts="{inherit: false}">{{area.name}}</a>
-                            <span>{{listCtrl.neighborhood.coffeeShopCount}}</span>
+                            <span>{{area.coffeeShopIds.length}}</span>
                         </li>
                     </ul>
                 </div>
@@ -115,21 +115,16 @@
                 <!-- Tag Cloud -->
                 <div class="margin-45px-bottom xs-margin-25px-bottom">
                     <div class="text-extra-dark-gray margin-25px-bottom alt-font text-uppercase font-weight-600 text-small aside-title aside-title_green">
-                        <span>tags cloud</span>
+                        <span>Filters</span>
                     </div>
                     <div class="tag-cloud">
-                        <a href="blog-grid.html">ADVERTISEMENT</a>
-                        <a href="blog-grid.html">ARTISTRY</a>
-                        <a href="blog-grid.html">BLOG</a>
-                        <a href="blog-grid.html">CONCEPTUAL</a>
-                        <a href="blog-grid.html">DESIGN</a>
-                        <a href="blog-grid.html">FASHION</a>
-                        <a href="blog-grid.html">INSPIRATION</a>
-                        <a href="blog-grid.html">SMART</a>
-                        <a href="blog-grid.html">QUOTES</a>
-                        <a href="blog-grid.html">UNIQUE</a>
-                        <a href="blog-grid.html">CONCEPTS</a>
+                        <label class="btn btn-primary btn-tag" ng-model="listCtrl.tags.hasWifi" ng-change="listCtrl.hasWifiChange()" uib-btn-checkbox>Has Wifi</label>
+                        <label class="btn btn-primary btn-tag" ng-model="listCtrl.tags.hasOutlet" ng-change="listCtrl.hasOutletChange()" uib-btn-checkbox>Has Outlet</label>
+                        <label class="btn btn-primary btn-tag" ng-model="listCtrl.tags.hasParking" ng-change="listCtrl.hasParkingChange()" uib-btn-checkbox>Has Parking</label>
+                        <label class="btn btn-primary btn-tag" ng-model="listCtrl.tags.openLate" ng-change="listCtrl.openLateChange()" uib-btn-checkbox>Open Late</label>
+                        <label class="btn btn-primary btn-tag" ng-model="listCtrl.tags.ampleSeating" ng-change="listCtrl.ampleSeatingChange()" uib-btn-checkbox>Ample Seating</label>
                     </div>
+                    <a class="cursor" style="font-size: 10px" ng-click="listCtrl.clearFilters()">Clear Filters</a>
                 </div>
 
                 <!-- Newsletter -->

@@ -26,7 +26,7 @@ function readAll(req, res) {
 function readById(req, res) {
     coffeeShopsService.readById(req.params.id)
         .then(coffeeShop => {
-            if (!notification) {
+            if (!coffeeShop) {
                 res.status(404).send(new responses.ErrorResponse("Item does not exist."))
             }
             else {
