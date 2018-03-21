@@ -53,10 +53,7 @@
     function getArea(areaService, $stateParams) {
         if ($stateParams.area) {
             return areaService.readByName($stateParams.area)
-                .then(data => {
-                    console.log(`this is data from resolve area: ${data}`)
-                    return data.item[0]  
-                })
+                .then(data => data.item[0])
         }
         else {
             return null

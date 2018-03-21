@@ -12,6 +12,7 @@ module.exports = {
 }
 
 function readAll() {
+    let coffeeShopArray = []
     return conn.db().collection('coffeeShops').find().toArray()
         .then(coffeeShops => {
             //sort by ranking
@@ -23,17 +24,42 @@ function readAll() {
                 let coffeeShop = coffeeShops[i]
                 coffeeShop._id = coffeeShop._id.toString()
             }
-            return coffeeShops
+            //find areaName from areaId
+            var promiseArray = []
+            coffeeShops.map(coffeeShop => {
+                let promise = conn.db().collection('areas').findOne({ _id: new ObjectId(coffeeShop.areaId), 'dateDeactivated': null })
+                    .then(area => {
+                        coffeeShop.areaName = area.name
+                    })
+                promiseArray.push(promise)
+                return coffeeShop
+            })
+
+            coffeeShopArray = coffeeShops
+            return promiseArray
         })
+        .then(promiseArray => {
+            return Promise.all(promiseArray)
+        })
+        .then(() => coffeeShopArray)
+
 }
 
 function readById(id) {
-    return conn.db().collection('coffeeShops')
-        .findOne({ _id: new ObjectId(id) })
+    let coffeeShopObj = {}
+    return conn.db().collection('coffeeShops').findOne({ _id: new ObjectId(id) })
         .then(coffeeShop => {
             coffeeShop._id = coffeeShop._id.toString()
+            coffeeShopObj = coffeeShop
             return coffeeShop
         })
+        .then(coffeeShop => {
+            return conn.db().collection('areas').findOne({ _id: new ObjectId(coffeeShop.areaId), 'dateDeactivated': null })
+        })
+        .then(area => {
+            coffeeShopObj.areaName = area.name
+        })
+        .then(() => coffeeShopObj)
 }
 
 function create(model) {
