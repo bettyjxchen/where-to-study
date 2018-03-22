@@ -51,22 +51,12 @@
                         .then(data => {
                             area = data.item[0]
                             area.coffeeShops.map(convertRating)
-                            vm.coffeeShopArrayMaster = area.coffeeShops
+                            vm.coffeeShopArrayMaster = vm.coffeeShopArrayMaster.concat(area.coffeeShops)
+                        })
+                        .then(() => {
                             vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayMaster)
                             console.log(vm.coffeeShopArray)
                         })
-                        // .then(() => {
-                        //     vm.coffeeShopArrayMaster.forEach(coffeeShop => {
-                        //         //find area name from area id
-                        //         areaService.readById(coffeeShop.areaId)
-                        //             .then(data => {
-                        //                 area = data.item[0]
-                        //                 coffeeShop.areaName = area.name
-                        //                 vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayMaster)
-                        //                 console.log(vm.coffeeShopArray)
-                        //             })
-                        //     })
-                        // })
                 }
             }
         }
@@ -83,9 +73,9 @@
 
             //remove wifi filter
             else {
-                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
-                    if (!vm.coffeeShopArrayCopy[i].hasWifi) {
-                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                for (var i = 0; i < vm.coffeeShopArrayMaster.length; i++) {
+                    if (!vm.coffeeShopArrayMaster[i].hasWifi) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayMaster[i])
                     }
                 }
             }
@@ -103,9 +93,9 @@
 
             //remove filter
             else {
-                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
-                    if (!vm.coffeeShopArrayCopy[i].hasOutlet) {
-                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                for (var i = 0; i < vm.coffeeShopArrayMaster.length; i++) {
+                    if (!vm.coffeeShopArrayMaster[i].hasOutlet) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayMaster[i])
                     }
                 }
             }
@@ -123,9 +113,9 @@
 
             //remove filter
             else {
-                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
-                    if (!vm.coffeeShopArrayCopy[i].hasParking) {
-                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                for (var i = 0; i < vm.coffeeShopArrayMaster.length; i++) {
+                    if (!vm.coffeeShopArrayMaster[i].hasParking) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayMaster[i])
                     }
                 }
             }
@@ -143,9 +133,9 @@
 
             //remove filter
             else {
-                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
-                    if (!vm.coffeeShopArrayCopy[i].openLate) {
-                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                for (var i = 0; i < vm.coffeeShopArrayMaster.length; i++) {
+                    if (!vm.coffeeShopArrayMaster[i].openLate) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayMaster[i])
                     }
                 }
             }
@@ -163,9 +153,9 @@
 
             //remove filter
             else {
-                for (var i = 0; i < vm.coffeeShopArrayCopy.length; i++) {
-                    if (!vm.coffeeShopArrayCopy[i].ampleSeating) {
-                        vm.coffeeShopArray.push(vm.coffeeShopArrayCopy[i])
+                for (var i = 0; i < vm.coffeeShopArrayMaster.length; i++) {
+                    if (!vm.coffeeShopArrayMaster[i].ampleSeating) {
+                        vm.coffeeShopArray.push(vm.coffeeShopArrayMaster[i])
                     }
                 }
             }
@@ -180,12 +170,10 @@
                 ampleSeating: false
             }
 
-            vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayCopy)
-            console.log(vm.coffeeShopArrayCopy)
-            // console.log(vm.coffeeShopArray)
-
+            vm.coffeeShopArray = angular.copy(vm.coffeeShopArrayMaster)
         }
 
+        //*************** Helper Functions ****************//
         function convertRating(coffeeShop) {
             let ratingStars = "☆☆☆☆☆"
             ratingStars = ratingStars.split("")
@@ -203,6 +191,7 @@
                 $anchorScroll()
             })
         }
+        //*************************************************//
     }
 
 })()

@@ -5,6 +5,7 @@ const schema = {
     _id: Joi.objectId(),
     areaId: Joi.string().required(),
     name: Joi.string().required(),
+    description: Joi.string(),
     rating: Joi.number().required(),
     address: Joi.string(),
     hours: Joi.string(),

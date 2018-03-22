@@ -20,6 +20,29 @@ var lookupCoffeeShops = {
     foreignField: 'areaId',
     as: 'coffeeShops'
 }
+var coffeeShopProject = {
+    $map: {
+        input: '$areas.coffeeShops',
+        as: 'coffeeShop',
+        in: {
+            name: '$$coffeeShop.name',
+            areaName: '$areas.name',
+            _id: "$$coffeeShop._id",
+            areaId: "$$coffeeShop.areaI",
+            rating: "$$coffeeShop.rating",
+            description: "$$coffeeShop.description",
+            address: "$$coffeeShop.address",
+            hours: "$$coffeeShop.hours",
+            link: "$$coffeeShop.link",
+            imageUrl: "$$coffeeShop.imageUrl",
+            hasWifi: "$$coffeeShop.hasWifi",
+            hasOutlet: "$$coffeeShop.hasOutlet",
+            hasParking: "$$coffeeShop.hasParking",
+            openLate: "$$coffeeShop.openLate",
+            ampleSeating: "$$coffeeShop.ampleSeating"
+        }
+    }
+}
 //*************************************************//
 
 function readAll() {
@@ -64,29 +87,7 @@ function readAll() {
                 name: "$areas.name",
                 coffeeShopIds: "$areas.coffeeShopIds",
                 // coffeeShops: "$areas.coffeeShops",
-                coffeeShops: {
-                    $map: {
-                        input: '$areas.coffeeShops',
-                        as: 'coffeeShop',
-                        in: {
-                            name: '$$coffeeShop.name',
-                            areaName: '$areas.name',
-                            _id: "$$coffeeShop._id",
-                            areaId: "$$coffeeShop.areaI",
-                            name: "Green Door by Intelligentsia",
-                            rating: "$$coffeeShop.rating",
-                            address: "$$coffeeShop.address",
-                            hours: "$$coffeeShop.hours",
-                            link: "$$coffeeShop.link",
-                            imageUrl: "$$coffeeShop.imageUrl",
-                            hasWifi: "$$coffeeShop.hasWifi",
-                            hasOutlet: "$$coffeeShop.hasOutlet",
-                            hasParking: "$$coffeeShop.hasParking",
-                            openLate: "$$coffeeShop.openLate",
-                            ampleSeating: "$$coffeeShop.ampleSeating"
-                        }
-                    }
-                },
+                coffeeShops: coffeeShopProject,
                 dateCreated: "$areas.dateCreated",
                 dateModified: "$areas.dateModified",
                 dateDeactivated: "$areas.dateDeactivated",
@@ -139,29 +140,7 @@ function readById(id) {
                 name: "$areas.name",
                 coffeeShopIds: "$areas.coffeeShopIds",
                 // coffeeShops: "$areas.coffeeShops",
-                coffeeShops: {
-                    $map: {
-                        input: '$areas.coffeeShops',
-                        as: 'coffeeShop',
-                        in: {
-                            name: '$$coffeeShop.name',
-                            areaName: '$areas.name',
-                            _id: "$$coffeeShop._id",
-                            areaId: "$$coffeeShop.areaI",
-                            name: "Green Door by Intelligentsia",
-                            rating: "$$coffeeShop.rating",
-                            address: "$$coffeeShop.address",
-                            hours: "$$coffeeShop.hours",
-                            link: "$$coffeeShop.link",
-                            imageUrl: "$$coffeeShop.imageUrl",
-                            hasWifi: "$$coffeeShop.hasWifi",
-                            hasOutlet: "$$coffeeShop.hasOutlet",
-                            hasParking: "$$coffeeShop.hasParking",
-                            openLate: "$$coffeeShop.openLate",
-                            ampleSeating: "$$coffeeShop.ampleSeating"
-                        }
-                    }
-                },
+                coffeeShops: coffeeShopProject,
                 dateCreated: "$areas.dateCreated",
                 dateModified: "$areas.dateModified",
                 dateDeactivated: "$areas.dateDeactivated",
@@ -214,29 +193,7 @@ function readByName(name) {
                 name: "$areas.name",
                 coffeeShopIds: "$areas.coffeeShopIds",
                 // coffeeShops: "$areas.coffeeShops",
-                coffeeShops: {
-                    $map: {
-                        input: '$areas.coffeeShops',
-                        as: 'coffeeShop',
-                        in: {
-                            name: '$$coffeeShop.name',
-                            areaName: '$areas.name',
-                            _id: "$$coffeeShop._id",
-                            areaId: "$$coffeeShop.areaI",
-                            name: "Green Door by Intelligentsia",
-                            rating: "$$coffeeShop.rating",
-                            address: "$$coffeeShop.address",
-                            hours: "$$coffeeShop.hours",
-                            link: "$$coffeeShop.link",
-                            imageUrl: "$$coffeeShop.imageUrl",
-                            hasWifi: "$$coffeeShop.hasWifi",
-                            hasOutlet: "$$coffeeShop.hasOutlet",
-                            hasParking: "$$coffeeShop.hasParking",
-                            openLate: "$$coffeeShop.openLate",
-                            ampleSeating: "$$coffeeShop.ampleSeating"
-                        }
-                    }
-                },
+                coffeeShops: coffeeShopProject,
                 dateCreated: "$areas.dateCreated",
                 dateModified: "$areas.dateModified",
                 dateDeactivated: "$areas.dateDeactivated",
@@ -292,9 +249,9 @@ function deactivate(id) {
 function readMapping(model) {
     model._id = model._id.toString()
     model.coffeeShopIds.forEach(id => id = id.toString())
-    // if (model.coffeeShops.length) {
-    //     model.coffeeShops.forEach(coffeeShop => coffeeShop._id = coffeeShop._id.toString())
-    // }
+    if (model.coffeeShops.length) {
+        model.coffeeShops.forEach(coffeeShop => coffeeShop._id = coffeeShop._id.toString())
+    }
     model.coffeeShopCount = model.coffeeShopIds.length
 
     return model

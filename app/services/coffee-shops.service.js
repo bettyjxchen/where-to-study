@@ -63,8 +63,12 @@ function readById(id) {
 }
 
 function create(model) {
+    model.areaId = model.areaId.toString()
+
     let doc = {
         name: model.name,
+        areaId: model.areaId,
+        description: model.description,
         rating: model.rating,
         address: model.address,
         hours: model.hours,
@@ -82,9 +86,15 @@ function create(model) {
         dateDeactivated: null
     }
 
-    return conn.db().collection('coffeeShops')
-        .insert(doc)
+    return conn.db().collection('coffeeShops').insert(doc)
         .then(result => result.insertedIds[0].toString())
+        .then(() => {
+            conn.db().collection('areas').findOne({ _id: model.areaId }, { 'dateDeactivated': null })
+                .then(area => {
+                    area = area.item[0]
+                    area.coffeeShopIds.push(coffeeShop._id)
+                })
+        })
 }
 
 function update(id, model) {

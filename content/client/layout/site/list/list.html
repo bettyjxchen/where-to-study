@@ -39,7 +39,7 @@
                                 <a href="blog-standard-post.html" class="text-extra-dark-gray margin-5px-bottom alt-font text-extra-large font-weight-600 display-inline-block">{{coffeeShop.name}}</a>
                                 <!-- area and stars -->
                                 <div class="text-medium-gray text-extra-small margin-15px-bottom text-uppercase alt-font">
-                                    <span>{{coffeeShop.areaName}}</span>
+                                    <span><a ui-sref="site.list({neighborhood: listCtrl.neighborhood.name, area:coffeeShop.areaName})" ui-sref-opts="{inherit: false}">{{coffeeShop.areaName}}</a></span>
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="blog-grid.html" class="text-medium-gray">{{coffeeShop.rating}}</a>
                                 </div>
@@ -105,6 +105,9 @@
                         <span>All Areas in {{listCtrl.neighborhood.name}}</span>
                     </div>
                     <ul class="list-style-6 margin-50px-bottom text-small">
+                        <li>
+                            <a ui-sref="site.list({neighborhood: listCtrl.neighborhood.name})" ui-sref-opts="{inherit: false}">All</a>
+                        </li>
                         <li ng-repeat="area in listCtrl.neighborhood.areas">
                             <a ui-sref="site.list({neighborhood: listCtrl.neighborhood.name, area: area.name})" ui-sref-opts="{inherit: false}">{{area.name}}</a>
                             <span>{{area.coffeeShopIds.length}}</span>
